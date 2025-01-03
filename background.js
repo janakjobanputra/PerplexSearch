@@ -1,3 +1,4 @@
+// Create context menu on extension installation
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "searchPerplexity",
@@ -6,9 +7,13 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
+// Handle context menu click
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "searchPerplexity") {
     const searchUrl = `https://www.perplexity.ai/?q=${encodeURIComponent(info.selectionText)}`;
-    chrome.tabs.create({ url: searchUrl });
+    chrome.tabs.create({
+        url: searchUrl,
+        active: true
+    });
   }
 }); 
